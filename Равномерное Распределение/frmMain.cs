@@ -21,7 +21,7 @@ namespace Равномерное_Распределение
         // ElementsClr - Цвет элементов, ElementsMrkClr - Цвет Маркированных элементов
         Pen ClrCircle = new Pen(Color.White, 3);
         // ClrCircle - Цвет окружности, по которой распределяются элементы
-        float Angle;
+        float Angle = -90;
         // Angle - угол поворота элемента, относительно центра окружности
         bool AllSteps = false;
         //AllSteps - определяет, что выбрана отрисовка всех шагов алгоритма Евклида
@@ -33,7 +33,6 @@ namespace Равномерное_Распределение
         // AlgOneStep - вектор первого шага алгоритма Евклида 
         //number - определяет количество проделанных обычных серий
         int crdCircleX, crdCicleY, DiameterCircle;
-        int[] crdElements = new int[2];
         // Координаты и диаметры окружности и элементов
         public frmMain()
         {
@@ -144,21 +143,6 @@ namespace Равномерное_Распределение
             DiameterCircle = picDraw.Width * 4 / 5;
             crdCircleX = picDraw.Width / 2 - DiameterCircle / 2;
             crdCicleY = picDraw.Height / 2 - DiameterCircle / 2;
-            clsElements.Diametr = picDraw.Width / 30;
-            mdlRotate.W = picDraw.Width;
-            mdlRotate.H = picDraw.Height;
-            mdlRotate.cAx = 8;
-            mdlRotate.mmw = mdlRotate.W / (2 * (mdlRotate.cAx + 2));
-            mdlRotate.mmh = mdlRotate.H / (2 * (mdlRotate.cAx + 2));
-            mdlRotate.MtxStartCrd = new float[,] { { -mdlRotate.cAx, 0, 0, 1 }, { mdlRotate.cAx, 0, 0, 1 },
-                                                  {0, -mdlRotate.cAx, 0, 1 }, { 0, mdlRotate.cAx, 0, 1}
-                                                 ,{0, 0, -mdlRotate.cAx, 1 }, {0, 0, mdlRotate.cAx, 1 } };
-            mdlRotate.MtxTrs = new float[4, 4] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
-            mdlRotate.MtxEndCrd = new float[6, 4];
-            mdlRotate.MtxDecCrd = new float[6, 4];
-            mdlRotate.MtxDisCrd = new int[6, 4];
-            Angle = 0;
-            crdElements = mdlRotate.mathGeneral(Angle);
             UniformDistribution();
         }
         /// <summary>
@@ -271,6 +255,8 @@ namespace Равномерное_Распределение
         private void InitializationSteps()
         {
             clsStep.MyCol.Clear();
+            float CenterHolst = picDraw.Width / 2 - clsElements.Diametr / 2;
+            float ProjectionFirstStep = picDraw.Width / 2 - crdCircleX;
             StepDistance = Math.Abs((crdCircleX - (picDraw.Width / 2 - picDraw.Width / 40)) / clsStep.EvklidAlgoritm.GetLength(0));
             for (int i = 0; i < clsStep.EvklidAlgoritm.GetLength(0); i++)
             {
@@ -281,27 +267,30 @@ namespace Равномерное_Распределение
                 }
                 for (int j = 0; j < clsStep.EvklidAlgoritm[i, 0]; j++)
                 {
-                    if (clsStep.EvklidAlgoritm[i, 0] != 0)
+                    if (j != 0)
                     {
-                        if (AdditionalAngle != 0)
+                        if (clsStep.EvklidAlgoritm[i, 0] != 0)
                         {
-                            Angle = -(360 / clsStep.EvklidAlgoritm[i, 0]) - 1;
-                            AdditionalAngle -= 1;
-                        }
-                        else
-                        {
-                            Angle = -360 / clsStep.EvklidAlgoritm[i, 0];
+                            if (AdditionalAngle != 0)
+                            {
+                                Angle += 360 / clsStep.EvklidAlgoritm[i, 0] + 1;
+                                AdditionalAngle--;
+                            }
+                            else
+                            {
+                                Angle += 360 / clsStep.EvklidAlgoritm[i, 0];
+                            }
                         }
                     }
-                    clsStep.MyCol[i].ElOfMark[j] = new clsElements(crdElements[0], crdElements[1]);
+                    clsStep.MyCol[i].ElOfMark[j] = new clsElements(CenterHolst + ProjectionFirstStep * (float)Math.Cos(Angle * Math.PI / 180),
+                                                                   CenterHolst + ProjectionFirstStep * (float)Math.Sin(Angle * Math.PI / 180));
                     if (AllSteps)
                     {
-                        clsStep.MyCol[i].ElOfMark[j].Projection(StepDistance * i, Angle * j);
+                        clsStep.MyCol[i].ElOfMark[j].Projection(StepDistance * i, Angle - 180);
                     }
-                    crdElements = mdlRotate.mathGeneral(Angle);
                 }
+                Angle = -90;
             }
-            mdlRotate.MtxTrs = new float[,] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
         }
         /// <summary>
         /// Выводит информацию о каждом шаге алгоритма Евклида

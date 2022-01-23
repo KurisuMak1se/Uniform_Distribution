@@ -35,8 +35,8 @@ namespace Равномерное_Распределение
         /// <param name="Angle"></param>
         public void Projection(int Hypotenuse, float Angle)
         {
-            CrdX += Hypotenuse * (float)Math.Cos((90 - Angle) * Math.PI / 180);
-            CrdY += Hypotenuse * (float)Math.Sin((90 - Angle) * Math.PI / 180);
+            CrdX += Hypotenuse * (float)Math.Cos(Angle * Math.PI / 180);
+            CrdY += Hypotenuse * (float)Math.Sin(Angle * Math.PI / 180);
         }
     }
 }
