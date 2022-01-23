@@ -143,6 +143,7 @@ namespace Равномерное_Распределение
             DiameterCircle = picDraw.Width * 4 / 5;
             crdCircleX = picDraw.Width / 2 - DiameterCircle / 2;
             crdCicleY = picDraw.Height / 2 - DiameterCircle / 2;
+            clsElements.Diametr = picDraw.Width / 30;
             UniformDistribution();
         }
         /// <summary>
