@@ -16,7 +16,7 @@ namespace Равномерное_Распределение
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new frmUniformDistribution());
         }
     }
 }

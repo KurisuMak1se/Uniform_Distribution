@@ -1,6 +1,6 @@
 ﻿namespace Равномерное_Распределение
 {
-    partial class frmMain
+    partial class frmUniformDistribution
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -125,7 +125,7 @@
             this.Information.Size = new System.Drawing.Size(121, 97);
             this.Information.TabIndex = 8;
             this.Information.UseCompatibleStateImageBehavior = false;
-            this.Information.View = System.Windows.Forms.View.List;
+            this.Information.View = System.Windows.Forms.View.Tile;
             // 
             // Panel
             // 
@@ -213,8 +213,8 @@
             this.Controls.Add(this.DrawElPlus);
             this.Name = "frmMain";
             this.Text = "Равномерное распределение";
-            this.Load += new System.EventHandler(this.frmMain_Load);
-            this.Resize += new System.EventHandler(this.frmMain_Resize);
+            this.Load += new System.EventHandler(this.frmUniformDistribution_Load);
+            this.Resize += new System.EventHandler(this.frmUniformDistribution_Resize);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picDraw)).EndInit();
             this.ResumeLayout(false);

@@ -132,7 +132,7 @@ namespace Равномерное_Распределение
             EvklidAlgoritm = new int[1, 4];
             if (AlgOneStep[0] / 2 < AlgOneStep[2])
             {
-                AlgOneStep[2] -= 1;
+                AlgOneStep[2]--;
             }
             if (AlgOneStep[2] != 0)
             {

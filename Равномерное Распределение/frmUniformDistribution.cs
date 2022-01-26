@@ -11,7 +11,7 @@ using System.Drawing.Drawing2D;
 
 namespace Равномерное_Распределение
 {
-    public partial class frmMain : Form
+    public partial class frmUniformDistribution : Form
     {
         Pen LineColor = new Pen(Color.White, 2);
         Graphics GrpCircle, GrpElements, GrpLines;
@@ -34,7 +34,7 @@ namespace Равномерное_Распределение
         //number - определяет количество проделанных обычных серий
         int crdCircleX, crdCicleY, DiameterCircle;
         // Координаты и диаметры окружности и элементов
-        public frmMain()
+        public frmUniformDistribution()
         {
             InitializeComponent();
         }
@@ -104,7 +104,7 @@ namespace Равномерное_Распределение
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void frmMain_Resize(object sender, EventArgs e)
+        private void frmUniformDistribution_Resize(object sender, EventArgs e)
         {
             Panel.Location = new Point(Width * 3 / 10, Height / 6);
             Panel.Height = Height * 3 / 4;
@@ -151,7 +151,7 @@ namespace Равномерное_Распределение
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void frmMain_Load(object sender, EventArgs e)
+        private void frmUniformDistribution_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
         }
@@ -251,7 +251,7 @@ namespace Равномерное_Распределение
             StepsEvklid.Items.Add("Все шаги алгоритма Евклида");
         }
         /// <summary>
-        /// Отрисовывает равномерно распределённые элементы на окружности
+        /// Инициализирует шаги
         /// </summary>
         private void InitializationSteps()
         {
@@ -301,11 +301,11 @@ namespace Равномерное_Распределение
             Information.Items.Clear();
             for (int i = 0; i < clsStep.EvklidAlgoritm.GetLength(0); i++)
             {
-                Information.Items.Add($"{i + 1} шаг алгоритма Евклида");
-                Information.Items.Add($"Кол-во элементов: {clsStep.EvklidAlgoritm[i, 0]}");
-                Information.Items.Add($"Кол-во выбираемых элементов: {clsStep.EvklidAlgoritm[i, 2]}");
-                Information.Items.Add($"Кол-во больших серий: {clsStep.EvklidAlgoritm[i, 3]}");
-                Information.Items.Add($"Промежуток маркировки: {clsStep.EvklidAlgoritm[i, 1]}");
+                Information.Items.Add($"    {i + 1} шаг алгоритма Евклида");
+                Information.Items.Add($"    Кол-во элементов: {clsStep.EvklidAlgoritm[i, 0]}");
+                Information.Items.Add($"    Кол-во выбираемых элементов: {clsStep.EvklidAlgoritm[i, 2]}");
+                Information.Items.Add($"    Кол-во больших серий: {clsStep.EvklidAlgoritm[i, 3]}");
+                Information.Items.Add($"    Промежуток маркировки: {clsStep.EvklidAlgoritm[i, 1]}");
                 Information.Items.Add("");
             }
         }
