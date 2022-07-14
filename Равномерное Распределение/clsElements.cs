@@ -16,7 +16,13 @@ namespace Равномерное_Распределение
         // CrdY - Координата y элемента
         // Diametr - диаметр элемента
         public bool Marking;
-        // Marking - Определяет, маркирован элемент или нет
+        // Флажок маркировки элемента
+        public int Numbering;
+        // Номер элемента
+        public int MarkingNumbering;
+        // Номер маркированного элемента
+        public float StationCrdX, StationCrdY;
+        // Координаты текстовых блоков станций
         /// <summary>
         /// Инициализация элемента
         /// </summary>
@@ -37,6 +43,14 @@ namespace Равномерное_Распределение
         {
             CrdX += Hypotenuse * (float)Math.Cos(Angle * Math.PI / 180);
             CrdY += Hypotenuse * (float)Math.Sin(Angle * Math.PI / 180);
+        }
+        /// <summary>
+        /// Возвращает номер элемента
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Numbering.ToString() + (Marking ? "(" + MarkingNumbering.ToString() + ")" : "");
         }
     }
 }

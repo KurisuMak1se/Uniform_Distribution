@@ -10,7 +10,6 @@ namespace Равномерное_Распределение
     {
         public static IList<clsStep> MyCol = new List<clsStep>();
         // MyCol - Коллекция шагов
-        public bool[] SeriaL;
         // SerialL - Количество серий и определение из них больших
         public clsElements[] ElOfMark;
         // ElOfMark - Элементы шага
@@ -20,29 +19,16 @@ namespace Равномерное_Распределение
         //EvklidAlgoritm - матрица всех шагов алгоритма Евклида
         //В i шаге алгоритма Евклида EvklidAlgoritm[i][0] - общее число элементов, EvklidAlgoritm[i][2] - число маркированных элементов, EvklidAlgoritm[i][1] - промежуток между маркированными элементами 
         //EvklidAlgoritm[i][3] - количество больших серий(большие серии = промежуток EvklidAlgoritm[i][2] + 1)
+        public static int RotateSteps = 0;
+        // Параметр поворота последовательности
         /// <summary>
         /// Инициализация шага(Количество элементов в шаге / Маленькая серия / Количество серий)
         /// </summary>
         /// <param name="index"></param>
         public clsStep(int index)
         {
-            int NumLargeSeria = EvklidAlgoritm[index, 3];
             ElOfMark = new clsElements[EvklidAlgoritm[index ,0]];
             SmallSeria = EvklidAlgoritm[index, 1];
-            SeriaL = new bool[EvklidAlgoritm[index, 2]];
-            for(int i = 0; i < SeriaL.Length; i++)
-            {
-                if (EvklidAlgoritm[index, 3] != 0)
-                {
-                    SeriaL[i] = true;
-                    EvklidAlgoritm[index, 3] -= 1;
-                }
-                else
-                {
-                    SeriaL[i] = false;
-                }
-            }
-            EvklidAlgoritm[index, 3] = NumLargeSeria;
         }
         /// <summary>
         /// Сортировка коллекции шагов
@@ -50,6 +36,7 @@ namespace Равномерное_Распределение
         /// <returns></returns>
         public static IList<clsStep> SortElements()
         {
+            int NumberSmallSeries = 0, NumberBigSeries = 0;
             IList<clsStep> NewCol = new List<clsStep>();
             int AdditionalIndex;
             for (int i = 0; i < MyCol.Count; i++)
@@ -64,40 +51,35 @@ namespace Равномерное_Распределение
                 }
             }
             NewCol.Add(AdditionalStep());
-            for (int i = 0; i < (NewCol.Count == 1 ? 1 : NewCol.Count - 1); i++)
+            for (int i = 0; i <  NewCol.Count - 1; i++)
             {
-                AdditionalIndex = 0;
-                for(int j = 0; j < NewCol[NewCol.Count - 1 - i].ElOfMark.Length; j++)
+                if (RotateSteps == -1 & i == NewCol.Count - 2)
                 {
+                    RotateSteps = NewCol[NewCol.Count - 2 - i].ElOfMark.Length - 1;
+                }
+                for (int k = 0; k < NewCol[NewCol.Count - 2 - i].ElOfMark.Length; k++)
+                {
+                    NewCol[NewCol.Count - 2 - i].ElOfMark[k] = new clsElements(MyCol[NewCol.Count - 2 - i].ElOfMark[k].CrdX,
+                                                                               MyCol[NewCol.Count - 2 - i].ElOfMark[k].CrdY);
+
+                }
+                for (int j = 0; j < NewCol[NewCol.Count - 1 - i].ElOfMark.Length; j++)
+                {
+                    AdditionalIndex = (NewCol[NewCol.Count - 2 - i].SmallSeria * NumberSmallSeries + (NewCol[NewCol.Count - 2 - i].SmallSeria + 1) * NumberBigSeries +
+                                       (i == NewCol.Count - 2 ? RotateSteps : 0)) % NewCol[NewCol.Count - 2 - i].ElOfMark.Length;
                     if (NewCol[NewCol.Count - 1 - i].ElOfMark[j].Marking)
                     {
-                        NewCol[NewCol.Count - 2 - i].SeriaL[j] = true;
-                        for(int k = 0; k < NewCol[NewCol.Count - 2 - i].SmallSeria + 1; k++)
-                        {
-                            NewCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex] = new clsElements(MyCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex].CrdX,
-                                                                                                MyCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex].CrdY);
-                            if (k == 0)
-                            {
-                                NewCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex].Marking = true;
-                            }
-                        }
-                        AdditionalIndex += NewCol[NewCol.Count - 2 - i].SmallSeria + 1;
+                        NumberBigSeries++;
+                        NewCol[NewCol.Count - 2 - i].ElOfMark[AdditionalIndex].Marking = true;
                     }
                     else
                     {
-                        NewCol[NewCol.Count - 2 - i].SeriaL[j] = false;
-                        for (int k = 0; k < NewCol[NewCol.Count - 2 - i].SmallSeria; k++)
-                        {
-                            NewCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex] = new clsElements(MyCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex].CrdX,
-                                                                                                MyCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex].CrdY);
-                            if (k == 0)
-                            {
-                                NewCol[NewCol.Count - 2 - i].ElOfMark[k + AdditionalIndex].Marking = true;
-                            }
-                        }
-                        AdditionalIndex += NewCol[NewCol.Count - 2 - i].SmallSeria;
+                        NumberSmallSeries++;
+                        NewCol[NewCol.Count - 2 - i].ElOfMark[AdditionalIndex].Marking = true;
                     }
                 }
+                NumberBigSeries = 0;
+                NumberSmallSeries = 0;
             }
             if (MyCol.Count == 1)
             {
@@ -149,7 +131,7 @@ namespace Равномерное_Распределение
                 EvklidAlgoritm = NewSizeArr(EvklidAlgoritm, NumberRows);
                 for (int i = 0; i < EvklidAlgoritm.GetLength(1); i++)
                 {
-                    clsStep.EvklidAlgoritm[NumberRows - 1, i] = AlgOneStep[i];
+                    EvklidAlgoritm[NumberRows - 1, i] = AlgOneStep[i];
                 }
                 NumberRows++;
                 AlgOneStep[0] = AlgOneStep[2];
