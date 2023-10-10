@@ -45,6 +45,8 @@
             this.UpDiametrElementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DownDiametrElementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReversColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UpIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DownIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NumberingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InputNumberingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,8 +62,6 @@
             this.OpenFileDialogLines = new System.Windows.Forms.OpenFileDialog();
             this.btnRotateLeft = new System.Windows.Forms.Button();
             this.btnRotateRight = new System.Windows.Forms.Button();
-            this.UpIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DownIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDraw)).BeginInit();
             this.MainMenu.SuspendLayout();
@@ -124,10 +124,10 @@
             this.InputTxtMarkElements.TabIndex = 11;
             this.InputTxtMarkElements.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputTxtMarkElements_KeyPress);
             // 
-            // InputElements
+            // btnInputElements
             // 
             this.btnInputElements.Location = new System.Drawing.Point(560, 391);
-            this.btnInputElements.Name = "InputElements";
+            this.btnInputElements.Name = "btnInputElements";
             this.btnInputElements.Size = new System.Drawing.Size(135, 23);
             this.btnInputElements.TabIndex = 12;
             this.btnInputElements.Text = "Ввести";
@@ -220,6 +220,20 @@
             this.ReversColorsToolStripMenuItem.Size = new System.Drawing.Size(313, 26);
             this.ReversColorsToolStripMenuItem.Text = "Инвертировать цвет";
             this.ReversColorsToolStripMenuItem.Click += new System.EventHandler(this.ReversColorsToolStripMenuItem_Click);
+            // 
+            // UpIndentToolStripMenuItem
+            // 
+            this.UpIndentToolStripMenuItem.Name = "UpIndentToolStripMenuItem";
+            this.UpIndentToolStripMenuItem.Size = new System.Drawing.Size(313, 26);
+            this.UpIndentToolStripMenuItem.Text = "Увеличить отступ";
+            this.UpIndentToolStripMenuItem.Click += new System.EventHandler(this.UpIndentToolStripMenuItem_Click);
+            // 
+            // DownIndentToolStripMenuItem
+            // 
+            this.DownIndentToolStripMenuItem.Name = "DownIndentToolStripMenuItem";
+            this.DownIndentToolStripMenuItem.Size = new System.Drawing.Size(313, 26);
+            this.DownIndentToolStripMenuItem.Text = "Уменьшить отступ";
+            this.DownIndentToolStripMenuItem.Click += new System.EventHandler(this.DownIndentToolStripMenuItem_Click);
             // 
             // FontToolStripMenuItem
             // 
@@ -320,7 +334,7 @@
             this.btnRotateLeft.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnRotateLeft.CausesValidation = false;
             this.btnRotateLeft.Image = ((System.Drawing.Image)(resources.GetObject("btnRotateLeft.Image")));
-            this.btnRotateLeft.Location = new System.Drawing.Point(1307, 158);
+            this.btnRotateLeft.Location = new System.Drawing.Point(1131, 159);
             this.btnRotateLeft.Name = "btnRotateLeft";
             this.btnRotateLeft.Size = new System.Drawing.Size(82, 96);
             this.btnRotateLeft.TabIndex = 16;
@@ -338,20 +352,6 @@
             this.btnRotateRight.TabIndex = 17;
             this.btnRotateRight.UseVisualStyleBackColor = false;
             this.btnRotateRight.Click += new System.EventHandler(this.btnRotateRight_Click);
-            // 
-            // UpIndentToolStripMenuItem
-            // 
-            this.UpIndentToolStripMenuItem.Name = "UpIndentToolStripMenuItem";
-            this.UpIndentToolStripMenuItem.Size = new System.Drawing.Size(313, 26);
-            this.UpIndentToolStripMenuItem.Text = "Увеличить отступ";
-            this.UpIndentToolStripMenuItem.Click += new System.EventHandler(this.UpIndentToolStripMenuItem_Click);
-            // 
-            // DownIndentToolStripMenuItem
-            // 
-            this.DownIndentToolStripMenuItem.Name = "DownIndentToolStripMenuItem";
-            this.DownIndentToolStripMenuItem.Size = new System.Drawing.Size(313, 26);
-            this.DownIndentToolStripMenuItem.Text = "Уменьшить отступ";
-            this.DownIndentToolStripMenuItem.Click += new System.EventHandler(this.DownIndentToolStripMenuItem_Click);
             // 
             // frmUniformDistribution
             // 
